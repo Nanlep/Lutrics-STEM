@@ -1,0 +1,6 @@
+{
+  "name": "Lutrics Stem Club",
+  "description": "School registration and adoption platform for Lutrics Stem Box supercomputer/projector units with open-source AI LLMs, powered by NetAccess Foundation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
