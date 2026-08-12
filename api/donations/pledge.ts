@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { INITIAL_DONORS } from '../../src/data/initialData.js';
+import { logToGoogleSheets } from '../_sheets.js';
 import type { DonorPledge } from '../../src/types.js';
 
 declare global {
@@ -52,6 +53,9 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     getDonorsStore().unshift(newPledge);
+
+    // Fire-and-forget → log to Google Sheets
+    logToGoogleSheets('donor_pledge', newPledge as unknown as Record<string, unknown>);
 
     return res.json({
       success: true,

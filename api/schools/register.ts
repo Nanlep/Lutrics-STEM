@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getSchoolsStore, getStemUnitsStore } from '../_store.js';
+import { logToGoogleSheets } from '../_sheets.js';
 import type { SchoolRegistration, StemBoxUnit } from '../../src/types.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
@@ -79,6 +80,9 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       lastPing: 'Pending Dispatch & Delivery',
     };
     getStemUnitsStore().unshift(newBox);
+
+    // Fire-and-forget → log to Google Sheets
+    logToGoogleSheets('school_registration', newSchool as unknown as Record<string, unknown>);
 
     return res.json({
       success: true,
